@@ -5,10 +5,12 @@ package com.rwin336.runtracker;
  */
 
 import android.app.PendingIntent;
+import android.app.admin.SystemUpdatePolicy;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Criteria;
 import android.location.LocationManager;
+import android.location.Location;
 import android.util.Log;
 
 public class RunManager {
@@ -47,14 +49,33 @@ public class RunManager {
     public void startLocationUpdates() {
         String provider = LocationManager.GPS_PROVIDER;
 
+        // Get the last known location and broadcast it if you have one
+        try {
+            Location lastKnown = mLocationManager.getLastKnownLocation(provider);
+            if (lastKnown != null ) {
+                // Reset the time to now
+                lastKnown.setTime(System.currentTimeMillis());
+                broadcastLocation(lastKnown);
+            }
+        } catch (SecurityException se) {
+            Log.e(TAG, "SecurityException: requestLocationUpdates: " + se.toString());
+        }
+
         // Start updates from the location manager
         PendingIntent pi = getLocationPendingIntent(true);
         try {
             mLocationManager.requestLocationUpdates(provider, 0, 0, pi);
         } catch (SecurityException se) {
-            // TODO: Log the exception
+            Log.e(TAG, "SecurityException: requestLocationUpdates: " + se.toString());
         }
     }
+
+    private void broadcastLocation(Location location) {
+        Intent broadcast = new Intent(ACTION_LOCATION);
+        broadcast.putExtra(LocationManager.KEY_LOCATION_CHANGED, location);
+        mAppContext.sendBroadcast(broadcast);
+    }
+
 
     public void stopLocationUpdates() {
         PendingIntent pi = getLocationPendingIntent(false);
