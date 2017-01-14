@@ -12,8 +12,8 @@ import android.util.Log;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class RunActivityFragment extends Fragment {
-    private static final String TAG = "RunActivityFragment";
+public class RunFragment extends Fragment {
+    private static final String TAG = "RunFragment";
 
     private RunManager mRunManager;
 
@@ -28,14 +28,11 @@ public class RunActivityFragment extends Fragment {
         mRunManager = RunManager.get(getActivity());
     }
 
-    public RunActivityFragment() {
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_run, container, false);
-
+        View view = inflater.inflate(R.layout.activity_fragment, container, false);
+        Log.d(TAG, "RunFragment:      ************************************** onCreateView");
         mStartedTextView = (TextView)view.findViewById(R.id.run_startedTextView);
         mLatitudeTextView = (TextView)view.findViewById(R.id.run_latitudeTextView);
         mLongitudeTextView = (TextView)view.findViewById(R.id.run_longitudeTextView);
@@ -46,7 +43,7 @@ public class RunActivityFragment extends Fragment {
         mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "Start Button clicked");
+                Log.d(TAG, "RunFragment:         ******************* Start Button clicked");
                 mRunManager.startLocationUpdates();
                 updateUI();
             }
@@ -56,7 +53,7 @@ public class RunActivityFragment extends Fragment {
         mStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "Stop Button clicked");
+                Log.d(TAG, "RunFragment:      ******************************* Stop Button clicked");
                 mRunManager.stopLocationUpdates();
                 updateUI();
             }
@@ -67,8 +64,8 @@ public class RunActivityFragment extends Fragment {
     }
 
     private void updateUI() {
+        Log.d(TAG, "RunFragemnt:      ************************************************** updateUI");
         boolean started = mRunManager.isTrackingRun();
-
         mStartButton.setEnabled(!started);
         mStopButton.setEnabled(started);
     }
