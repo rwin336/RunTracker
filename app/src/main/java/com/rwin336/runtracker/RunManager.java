@@ -23,7 +23,6 @@ public class RunManager {
 
     // The private constructor forces users to use RunManager.get(context)
     private RunManager(Context appContext) {
-        Log.d(TAG, "RunManager created");
         mAppContext = appContext;
         mLocationManager =
                 (LocationManager)mAppContext.
@@ -40,7 +39,7 @@ public class RunManager {
     }
 
     private PendingIntent getLocationPendingIntent(boolean shouldCreate) {
-        Log.d(TAG, "PendingIntented");
+        Log.d(TAG, "getLocationPendingIntent");
         Intent broadcast = new Intent(ACTION_LOCATION);
         int flags = shouldCreate ? 0 : PendingIntent.FLAG_NO_CREATE;
         return PendingIntent.getBroadcast(mAppContext, 0, broadcast, flags);
@@ -69,7 +68,8 @@ public class RunManager {
     }
 
     public boolean isTrackingRun() {
-        return getLocationPendingIntent(false) != null;
+        PendingIntent pi = getLocationPendingIntent(false);
+        return pi != null;
     }
 
 }

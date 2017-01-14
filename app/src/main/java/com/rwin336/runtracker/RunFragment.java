@@ -32,7 +32,6 @@ public class RunFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_fragment, container, false);
-        Log.d(TAG, "RunFragment:      ************************************** onCreateView");
         mStartedTextView = (TextView)view.findViewById(R.id.run_startedTextView);
         mLatitudeTextView = (TextView)view.findViewById(R.id.run_latitudeTextView);
         mLongitudeTextView = (TextView)view.findViewById(R.id.run_longitudeTextView);
