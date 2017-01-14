@@ -42,7 +42,6 @@ public class RunFragment extends Fragment {
         mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "RunFragment:         ******************* Start Button clicked");
                 mRunManager.startLocationUpdates();
                 updateUI();
             }
@@ -52,7 +51,6 @@ public class RunFragment extends Fragment {
         mStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "RunFragment:      ******************************* Stop Button clicked");
                 mRunManager.stopLocationUpdates();
                 updateUI();
             }
@@ -63,7 +61,6 @@ public class RunFragment extends Fragment {
     }
 
     private void updateUI() {
-        Log.d(TAG, "RunFragemnt:      ************************************************** updateUI");
         boolean started = mRunManager.isTrackingRun();
         mStartButton.setEnabled(!started);
         mStopButton.setEnabled(started);

@@ -39,14 +39,12 @@ public class RunManager {
     }
 
     private PendingIntent getLocationPendingIntent(boolean shouldCreate) {
-        Log.d(TAG, "getLocationPendingIntent");
         Intent broadcast = new Intent(ACTION_LOCATION);
         int flags = shouldCreate ? 0 : PendingIntent.FLAG_NO_CREATE;
         return PendingIntent.getBroadcast(mAppContext, 0, broadcast, flags);
     }
 
     public void startLocationUpdates() {
-        Log.d(TAG, "Starting location Updates");
         String provider = LocationManager.GPS_PROVIDER;
 
         // Start updates from the location manager
@@ -59,7 +57,6 @@ public class RunManager {
     }
 
     public void stopLocationUpdates() {
-        Log.d(TAG, "Stoping location Updates");
         PendingIntent pi = getLocationPendingIntent(false);
         if (pi != null) {
             mLocationManager.removeUpdates(pi);
